@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 import fs from "fs-extra";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -14,6 +15,8 @@ if (!args[0]) {
 
 const projectName = args[0];
 const targetDir = path.join(process.cwd(), projectName);
+
+console.log("Project Directory", targetDir);
 
 // Resolve template folder inside package (works for npx GitHub tarball)
 const templateDir = path.resolve(__dirname, "template");
