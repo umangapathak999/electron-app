@@ -37,6 +37,14 @@ async function main() {
     // Copy template → target
     await fs.copy(templateDir, targetDir);
 
+    // Update package.json name
+    const pkgJsonPath = join(targetDir, "package.json");
+    if (fs.existsSync(pkgJsonPath)) {
+      const pkgJson = await fs.readJson(pkgJsonPath);
+      pkgJson.name = projectName; // set name to user input
+      await fs.writeJson(pkgJsonPath, pkgJson, { spaces: 2 });
+    }
+
     console.log(`✅ Project '${projectName}' created successfully!\n`);
     console.log("Next steps:");
     console.log(`  cd ${projectName}`);
