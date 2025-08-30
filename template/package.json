@@ -43,7 +43,10 @@
       "maintainer": "Umanga Pathak <contact@umangapathak.com.np>",
       "category": "Utility",
       "target": ["AppImage"]
-    }
+    },
+    "extraCommandlineSwitches": [
+      "--no-sandbox"
+    ]
   },
   "dependencies": {
     "react": "^19.1.1",

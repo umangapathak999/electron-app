@@ -15,6 +15,7 @@ const createWindow = () => {
     width: 1000,
     height: 700,
     webPreferences: {
+      sandbox: false,
       preload: path.join(__dirname, "preload.js"), // load compiled CommonJS preload
       contextIsolation: true,
       nodeIntegration: false
