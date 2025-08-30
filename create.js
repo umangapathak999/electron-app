@@ -3,34 +3,34 @@ import fs from "fs-extra";
 import path from "path";
 import { fileURLToPath } from "url";
 
-// Use __dirname of the create.js file itself
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// CLI argument
 const args = process.argv.slice(2);
 if (!args[0]) {
   console.log("Usage: npx <repo> <project-name>");
   process.exit(1);
 }
-
 const projectName = args[0];
 const targetDir = path.join(process.cwd(), projectName);
 
-// Template root is where create.js lives in the npm repo
-const templateDir = path.join(__dirname); 
+// Template root inside the package
+const templateDir = path.resolve(__dirname, "../"); // <- ensures it’s repo root
 
 if (fs.existsSync(targetDir)) {
   console.log(`❌ Folder '${projectName}' already exists!`);
   process.exit(1);
 }
 
+// Copy everything except unwanted files
 fs.copySync(templateDir, targetDir, {
   filter: (src) =>
     !src.includes("node_modules") &&
     !src.includes("dist") &&
     !src.includes("dist-electron") &&
     !src.includes(".git") &&
-    !src.includes("create.js") // avoid copying itself
+    !src.includes("create.js") // exclude itself
 });
 
 console.log(`✅ Project '${projectName}' created successfully!`);
