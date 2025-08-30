@@ -6,39 +6,31 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// CLI argument: project name
 const args = process.argv.slice(2);
 if (!args[0]) {
-  console.log("Usage: npx <repo> <project-name>");
+  console.log("Usage: npx <github-user>/<repo> <project-name>");
   process.exit(1);
 }
+
 const projectName = args[0];
 const targetDir = path.join(process.cwd(), projectName);
 
-// Template folder inside package
-// Use `path.resolve` instead of `path.join` for npx GitHub downloads
+// Resolve template folder inside package (works for npx GitHub tarball)
 const templateDir = path.resolve(__dirname, "template");
 
-// Ensure template exists
 if (!fs.existsSync(templateDir)) {
-  console.error(`❌ Template folder not found! Checked: ${templateDir}`);
+  console.error("❌ Template folder not found!");
   process.exit(1);
 }
 
-// Ensure target doesn't exist
 if (fs.existsSync(targetDir)) {
   console.error(`❌ Folder '${projectName}' already exists!`);
   process.exit(1);
 }
 
-// Copy template folder
+// Copy template folder recursively
 fs.copySync(templateDir, targetDir, {
-  filter: (src) =>
-    !src.includes("node_modules") &&
-    !src.includes("dist") &&
-    !src.includes("dist-electron") &&
-    !src.includes(".git") &&
-    !src.includes("create.js")
+  filter: (src) => !src.includes("node_modules") && !src.includes("dist")
 });
 
 console.log(`✅ Project '${projectName}' created successfully!`);

@@ -1,16 +1,9 @@
 {
-  "name": "electron-app",
-  "version": "1.0.0",
-  "bin": {
-    "electron-app": "create.js"
-  },
-  "files": [
-    "create.js",
-    "template"
-  ],
+  "name": "electron-app-npx",
+  "version": "0.0.1",
   "type": "module",
-  "scripts": {
-    "start": "node create.js"
+  "bin": {
+    "create-electron-app": "./create.js"
   },
   "dependencies": {
     "fs-extra": "^11.1.1"
