@@ -1,12 +1,19 @@
 {
-  "name": "electron-app-template",
+  "name": "electron-app",
   "version": "1.0.0",
-  "type": "module",
   "bin": {
-    "electron-app": "./create.js"
+    "electron-app": "create.js"
+  },
+  "files": [
+    "create.js",
+    "template"
+  ],
+  "type": "module",
+  "scripts": {
+    "start": "node create.js"
   },
   "dependencies": {
-    "fs-extra": "^11.1.0"
+    "fs-extra": "^11.1.1"
   }
 }
 
