@@ -5,6 +5,7 @@
   "type": "module",
   "main": "dist-electron/main",
   "scripts": {
+    "predev": "tsc -p tsconfig.electron.json",
     "dev": "cross-env NODE_ENV=development concurrently \"vite\" \"tsc -p tsconfig.electron.json --watch\" \"wait-on http://localhost:5173 && electron .\"",
     "build": "vite build && tsc -p tsconfig.electron.json",
     "electron": "electron .",
