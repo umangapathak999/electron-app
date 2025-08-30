@@ -2,6 +2,10 @@
   "name": "electron-app-npx",
   "version": "0.0.1",
   "type": "module",
+  "files": [
+    "create.js",
+    "template"
+  ],
   "bin": {
     "create-electron-app": "./create.js"
   },
