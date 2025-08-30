@@ -12,18 +12,25 @@ if (!args[0]) {
   console.log("Usage: npx <repo> <project-name>");
   process.exit(1);
 }
+
 const projectName = args[0];
 const targetDir = path.join(process.cwd(), projectName);
 
-// Template root inside the package
-const templateDir = path.resolve(__dirname, "../"); // <- ensures it’s repo root
+// Template folder inside npm package
+// If you put all your template files in "template" folder, do this:
+const templateDir = path.join(__dirname, "template"); 
+
+if (!fs.existsSync(templateDir)) {
+  console.error("❌ Template folder not found in npm package!");
+  process.exit(1);
+}
 
 if (fs.existsSync(targetDir)) {
   console.log(`❌ Folder '${projectName}' already exists!`);
   process.exit(1);
 }
 
-// Copy everything except unwanted files
+// Copy template folder to new project
 fs.copySync(templateDir, targetDir, {
   filter: (src) =>
     !src.includes("node_modules") &&
