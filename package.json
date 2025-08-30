@@ -1,9 +1,9 @@
 {
-  "name": "electron-react-vite-ts-template",
+  "name": "electron-app-template",
   "version": "1.0.0",
   "type": "module",
   "bin": {
-    "create-electron-app": "./create.js"
+    "electron-app": "./create.js"
   },
   "dependencies": {
     "fs-extra": "^11.1.0"

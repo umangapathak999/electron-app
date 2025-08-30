@@ -6,27 +6,27 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// CLI argument
+// CLI argument: project name
 const args = process.argv.slice(2);
 if (!args[0]) {
   console.log("Usage: npx <repo> <project-name>");
   process.exit(1);
 }
-
 const projectName = args[0];
 const targetDir = path.join(process.cwd(), projectName);
 
-// Template folder inside npm package
-// If you put all your template files in "template" folder, do this:
-const templateDir = path.join(__dirname, "template"); 
+// Template folder inside the package
+const templateDir = path.join(__dirname, "template");
 
+// Check template exists
 if (!fs.existsSync(templateDir)) {
   console.error("❌ Template folder not found in npm package!");
   process.exit(1);
 }
 
+// Check target doesn't exist
 if (fs.existsSync(targetDir)) {
-  console.log(`❌ Folder '${projectName}' already exists!`);
+  console.error(`❌ Folder '${projectName}' already exists!`);
   process.exit(1);
 }
 
