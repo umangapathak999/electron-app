@@ -42,11 +42,10 @@
     "linux": {
       "maintainer": "Umanga Pathak <contact@umangapathak.com.np>",
       "category": "Utility",
-      "target": ["AppImage"]
-    },
-    "extraCommandlineSwitches": [
-      "--no-sandbox"
-    ]
+      "target": [
+        "AppImage", "deb", "rpm"
+      ]
+    }
   },
   "dependencies": {
     "react": "^19.1.1",
