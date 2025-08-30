@@ -1,5 +1,5 @@
 {
-  "name": "electron-app-npx",
+  "name": "electron-app",
   "version": "0.0.1",
   "type": "module",
   "files": [
