@@ -2,6 +2,7 @@ import { app, BrowserWindow } from "electron";
 import path from "path";
 import { fileURLToPath, pathToFileURL } from "url";
 
+// ESM __dirname fix
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -14,16 +15,17 @@ const createWindow = () => {
     width: 1000,
     height: 700,
     webPreferences: {
-      preload: path.join(__dirname, "preload.js"),
+      preload: path.join(__dirname, "preload.js"), // load compiled CommonJS preload
       contextIsolation: true,
       nodeIntegration: false
-    }
+    },
   });
 
   if (isDev) {
     mainWindow.loadURL("http://localhost:5173");
   } else {
-    mainWindow.loadURL(pathToFileURL(path.resolve(__dirname, "../dist/index.html")).toString());
+    const indexUrl = pathToFileURL(path.resolve(__dirname, "../dist/index.html")).toString();
+    mainWindow.loadURL(indexUrl);  
   }
 };
 
