@@ -1,16 +1,58 @@
 {
+  "author": {
+    "name": "Umanga Pathak",
+    "email": "contact@umangapathak.com.np"
+  },
+  "homepage": "https://github.com/umangapathak999/electron-app",
+  "description": "Electron app creation using React and TypeScript",
   "name": "electron-app-template",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "main": "dist-electron/main",
+  "main": "dist-electron/main.js",
   "scripts": {
     "predev": "tsc -p tsconfig.electron.json",
     "dev": "cross-env NODE_ENV=development concurrently \"vite\" \"tsc -p tsconfig.electron.json --watch\" \"wait-on http://localhost:5173 && electron .\"",
     "build": "vite build && tsc -p tsconfig.electron.json",
     "electron": "electron .",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "generate-icons": "node scripts/generate-icons.js",
+    "dist:windows": "npm run build && npm run generate-icons && electron-builder --win",
+    "dist:mac": "npm run build && npm run generate-icons && electron-builder --mac",
+    "dist:linux": "npm run build && npm run generate-icons && electron-builder --linux",
+    "dist": "npm run build && npm run generate-icons && electron-builder --mac --win --linux"
+  },
+  "build": {
+    "appId": "np.com.umangapathak.electronapp",
+    "files": [
+      "dist-electron/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "buildResources": "build-assets"
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "zip"
+      ]
+    },
+    "linux": {
+      "maintainer": "Umanga Pathak <contact@umangapathak.com.np>",
+      "category": "Utility",
+      "target": [
+        "AppImage",
+        "deb",
+        "rpm"
+      ]
+    }
   },
   "dependencies": {
     "react": "^19.1.1",
@@ -18,16 +60,20 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
+    "@types/electron": "^1.4.38",
+    "@types/node": "^24.3.0",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
     "@vitejs/plugin-react": "^5.0.0",
     "concurrently": "^9.2.1",
     "cross-env": "^10.0.0",
     "electron": "^37.4.0",
+    "electron-builder": "^26.0.12",
     "eslint": "^9.33.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.3.0",
+    "png2icons": "^2.0.1",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.39.1",
     "vite": "^7.1.2",
