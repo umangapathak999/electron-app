@@ -15,29 +15,30 @@ if (!args[0]) {
 const projectName = args[0];
 const targetDir = path.join(process.cwd(), projectName);
 
-// Template folder inside the package
-const templateDir = path.join(__dirname, "template");
+// Template folder inside package
+// Use `path.resolve` instead of `path.join` for npx GitHub downloads
+const templateDir = path.resolve(__dirname, "template");
 
-// Check template exists
+// Ensure template exists
 if (!fs.existsSync(templateDir)) {
-  console.error("❌ Template folder not found in npm package!");
+  console.error(`❌ Template folder not found! Checked: ${templateDir}`);
   process.exit(1);
 }
 
-// Check target doesn't exist
+// Ensure target doesn't exist
 if (fs.existsSync(targetDir)) {
   console.error(`❌ Folder '${projectName}' already exists!`);
   process.exit(1);
 }
 
-// Copy template folder to new project
+// Copy template folder
 fs.copySync(templateDir, targetDir, {
   filter: (src) =>
     !src.includes("node_modules") &&
     !src.includes("dist") &&
     !src.includes("dist-electron") &&
     !src.includes(".git") &&
-    !src.includes("create.js") // exclude itself
+    !src.includes("create.js")
 });
 
 console.log(`✅ Project '${projectName}' created successfully!`);
